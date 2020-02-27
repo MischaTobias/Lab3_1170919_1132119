@@ -37,20 +37,44 @@ namespace CustomGenerics.Structures
             }
         }
 
+        public delegate BinaryTreeNode<T> GetReplacementNode();
+
         public void Delete(BinaryTreeNode<T> currentNode, T value, Comparison<T> Comparison)
         {
             if (Comparison(currentNode.medicine, value) == 0)
             {
                 //Do something to replace the current node with the one with the most similar value of one of its sub-trees.
-
+                if (currentNode.leftSon != null)
+                {
+                    GetReplacementLeft(currentNode.leftSon);
+                }
+                else if (currentNode.rightSon != null)
+                {
+                    GetReplacementRight(currentNode.rightSon);
+                }
+                //Pending correction of delete function.
             }
         }
 
-        private BinaryTreeNode<T> GetNode(BinaryTreeNode<T> currentNode)
+        private BinaryTreeNode<T> GetReplacementLeft(BinaryTreeNode<T> currentNode)
         {
-            if (currentNode.rightSon != null)
+            if ((currentNode.rightSon).rightSon != null)
             {
-                return GetNode(currentNode);
+                return GetReplacementLeft(currentNode.rightSon);
+            }
+            else
+            {
+                var returningNode = currentNode.rightSon;
+                currentNode.rightSon = null;
+                return returningNode;
+            }
+        }
+
+        private BinaryTreeNode<T> GetReplacementRight(BinaryTreeNode<T> currentNode)
+        {
+            if (currentNode.leftSon != null)
+            {
+                return GetReplacementRight(currentNode.leftSon);
             }
             else
             {
