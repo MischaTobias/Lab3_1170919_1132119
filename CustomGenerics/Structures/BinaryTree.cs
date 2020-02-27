@@ -42,6 +42,19 @@ namespace CustomGenerics.Structures
             if (Comparison(currentNode.medicine, value) == 0)
             {
                 //Do something to replace the current node with the one with the most similar value of one of its sub-trees.
+
+            }
+        }
+
+        private BinaryTreeNode<T> GetNode(BinaryTreeNode<T> currentNode)
+        {
+            if (currentNode.rightSon != null)
+            {
+                return GetNode(currentNode);
+            }
+            else
+            {
+                return currentNode;
             }
         }
 
