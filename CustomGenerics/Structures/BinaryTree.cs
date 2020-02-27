@@ -37,7 +37,6 @@ namespace CustomGenerics.Structures
             }
         }
 
-
         protected override void Delete(BinaryTreeNode<T> currentNode, T value, Comparison<T> Comparison)
         {
             if (Comparison(currentNode.medicine, value) == 0)
