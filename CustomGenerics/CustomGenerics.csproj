@@ -41,8 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IDataStructureBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Interfaces\DataStructureBase.cs" />
     <Compile Include="Structures\BinaryTree.cs" />
     <Compile Include="Structures\BinaryTreeNode.cs" />
   </ItemGroup>

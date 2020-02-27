@@ -19,7 +19,7 @@ namespace CustomGenerics.Structures
             Insert(root, node, Comparison);
         }
 
-        void IDataStructureBase<T>.Insert(BinaryTreeNode<T> currentNode, BinaryTreeNode<T> newNode, Comparison<BinaryTreeNode<T>> Comparison)
+        public void Insert(BinaryTreeNode<T> currentNode, BinaryTreeNode<T> newNode, Comparison<BinaryTreeNode<T>> Comparison)
         {
             if (currentNode == null)
             {
@@ -37,7 +37,7 @@ namespace CustomGenerics.Structures
             }
         }
 
-        void IDataStructureBase<T>.Delete(BinaryTreeNode<T> currentNode, T value, Comparison<T> Comparison)
+        public void Delete(BinaryTreeNode<T> currentNode, T value, Comparison<T> Comparison)
         {
             if (Comparison(currentNode.medicine, value) == 0)
             {
@@ -45,7 +45,7 @@ namespace CustomGenerics.Structures
             }
         }
 
-        T IDataStructureBase<T>.GetT()
+        public T GetT()
         {
             throw new NotImplementedException();
         }
