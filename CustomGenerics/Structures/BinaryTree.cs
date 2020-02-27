@@ -37,13 +37,14 @@ namespace CustomGenerics.Structures
             }
         }
 
-        public delegate BinaryTreeNode<T> GetReplacementNode();
+        //public delegate BinaryTreeNode<T> GetReplacementNode();
 
         public void Delete(BinaryTreeNode<T> currentNode, T value, Comparison<T> Comparison)
         {
             if (Comparison(currentNode.medicine, value) == 0)
             {
-                //Do something to replace the current node with the one with the most similar value of one of its sub-trees.
+                //Do something to replace the current node with the one with the most similar value to its,
+                //beloinging to one of its sub-trees.
                 if (currentNode.leftSon != null)
                 {
                     GetReplacementLeft(currentNode.leftSon);
@@ -52,21 +53,34 @@ namespace CustomGenerics.Structures
                 {
                     GetReplacementRight(currentNode.rightSon);
                 }
-                //Pending correction of delete function.
+                else
+                {
+                    currentNode = null;//Pending to assign left and right subtrees to the new node; already returning the correct node.
+                }
             }
         }
 
         private BinaryTreeNode<T> GetReplacementLeft(BinaryTreeNode<T> currentNode)
         {
-            if ((currentNode.rightSon).rightSon != null)
+            if (currentNode.rightSon != null)
             {
-                return GetReplacementLeft(currentNode.rightSon);
+                if ((currentNode.rightSon).rightSon != null)
+                {
+                    return GetReplacementLeft(currentNode.rightSon);
+                }
+                else
+                {
+                    var replacementNode = currentNode.rightSon;
+                    if ((currentNode.rightSon).leftSon != null)
+                    {
+                        currentNode.rightSon = (currentNode.rightSon).leftSon;
+                    }
+                    return replacementNode;
+                }
             }
             else
             {
-                var returningNode = currentNode.rightSon;
-                currentNode.rightSon = null;
-                return returningNode;
+                return currentNode;
             }
         }
 
@@ -74,7 +88,19 @@ namespace CustomGenerics.Structures
         {
             if (currentNode.leftSon != null)
             {
-                return GetReplacementRight(currentNode.leftSon);
+                if ((currentNode.leftSon).leftSon != null)
+                {
+                    return GetReplacementLeft(currentNode.leftSon);
+                }
+                else
+                {
+                    var replacementNode = currentNode.leftSon;
+                    if ((currentNode.leftSon).rightSon != null)
+                    {
+                        currentNode.leftSon = (currentNode.leftSon).rightSon;
+                    }
+                    return replacementNode;
+                }
             }
             else
             {
