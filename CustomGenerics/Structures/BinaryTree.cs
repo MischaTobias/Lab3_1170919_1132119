@@ -108,9 +108,33 @@ namespace CustomGenerics.Structures
             }
         }
 
+        public BinaryTreeNode<T> Search(BinaryTreeNode<T> currentNode, T medicine, Comparison<T> Comparison)
+        {
+            if (Comparison(medicine, currentNode.medicine) < 0)
+            {
+                if (currentNode.leftSon != null)
+                {
+                    return Search(currentNode.leftSon, medicine, Comparison);
+                }
+            }
+            else if (Comparison(medicine, currentNode.medicine) == 0)
+            {
+                return currentNode;
+            }
+            else
+            {
+                if (currentNode.rightSon != null)
+                {
+                    return Search(currentNode.rightSon, medicine, Comparison);
+                }
+            }
+            return null;
+        }
+
         public T GetT()
         {
             throw new NotImplementedException();
         }
+
     }
 }
