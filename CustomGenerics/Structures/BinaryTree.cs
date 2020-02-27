@@ -37,10 +37,12 @@ namespace CustomGenerics.Structures
             }
         }
 
-
-        protected override void Delete(BinaryTreeNode<T> currentNode, T value, Comparison<T> comparer)
+        protected override void Delete(BinaryTreeNode<T> currentNode, T value, Comparison<T> Comparison)
         {
-
+            if (Comparison(currentNode.medicine, value) == 0)
+            {
+                //Do something to replace the current node with the one with the most similar value of one of its sub-trees.
+            }
         }
 
         protected override T GetT()
