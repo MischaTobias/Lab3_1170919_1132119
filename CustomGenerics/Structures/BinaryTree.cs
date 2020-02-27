@@ -4,7 +4,7 @@ using CustomGenerics.Structures;
 
 namespace CustomGenerics.Structures
 {
-    public class BinaryTree<T> : DataStructureBase<T>
+    public class BinaryTree<T> : IDataStructureBase<T>
     {
         private BinaryTreeNode<T> root;
 
@@ -19,7 +19,7 @@ namespace CustomGenerics.Structures
             Insert(root, node, Comparison);
         }
 
-        protected override void Insert(BinaryTreeNode<T> currentNode, BinaryTreeNode<T> newNode, Comparison<BinaryTreeNode<T>> Comparison)
+        void IDataStructureBase<T>.Insert(BinaryTreeNode<T> currentNode, BinaryTreeNode<T> newNode, Comparison<BinaryTreeNode<T>> Comparison)
         {
             if (currentNode == null)
             {
@@ -37,7 +37,7 @@ namespace CustomGenerics.Structures
             }
         }
 
-        protected override void Delete(BinaryTreeNode<T> currentNode, T value, Comparison<T> Comparison)
+        void IDataStructureBase<T>.Delete(BinaryTreeNode<T> currentNode, T value, Comparison<T> Comparison)
         {
             if (Comparison(currentNode.medicine, value) == 0)
             {
@@ -45,7 +45,7 @@ namespace CustomGenerics.Structures
             }
         }
 
-        protected override T GetT()
+        T IDataStructureBase<T>.GetT()
         {
             throw new NotImplementedException();
         }
