@@ -9,6 +9,7 @@ namespace CustomGenerics.Structures
     public class BinaryTree<T> : IDataStructureBase<T>, IEnumerable<T>
     {
         private BinaryTreeNode<T> root;
+        private List<BinaryTreeNode<T>> returningList = new List<BinaryTreeNode<T>>();
 
         public BinaryTree()
         {
@@ -138,10 +139,31 @@ namespace CustomGenerics.Structures
             throw new NotImplementedException();
         }
 
+        public void InOrder(BinaryTreeNode<T> currentNode)
+        {
+            if (currentNode.leftSon != null)
+            {
+                InOrder(currentNode.leftSon);
+            }
+            returningList.Add(currentNode);
+            if (currentNode.rightSon != null)
+            {
+                InOrder(currentNode.rightSon);
+            }
+        }
+
         public IEnumerator<T> GetEnumerator()
-        { 
-            //return values so that when you use a foreach, the nodes are shown wherever we need them.
-            throw new NotImplementedException();
+        {
+            if (returningList.Count > 0)
+            {
+                var current = returningList[0];
+                while (returningList.Count > 0)
+                {
+                    yield return current.medicine;
+                    returningList.RemoveAt(0);
+                }
+            }
+            //Check that you cannot return a binarytreenode as a T value
         }
 
         IEnumerator IEnumerable.GetEnumerator()
