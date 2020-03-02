@@ -12,11 +12,11 @@ namespace Lab3_1170919_1132119.Controllers
         // GET: Medicine
         public ActionResult Index()
         {
-            return View(Storage.Instance.binaryTree.ToList());
+            return View();
         }
 
         // GET: Medicine/Create
-        public ActionResult Create()
+        public ActionResult FileInventoryCreate()
         {
             return View();
         }
