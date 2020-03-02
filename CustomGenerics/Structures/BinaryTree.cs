@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using CustomGenerics.Interfaces;
 using CustomGenerics.Structures;
 
 namespace CustomGenerics.Structures
 {
-    public class BinaryTree<T> : IDataStructureBase<T>
+    public class BinaryTree<T> : IDataStructureBase<T>, IEnumerable<T>
     {
         private BinaryTreeNode<T> root;
 
@@ -136,5 +138,15 @@ namespace CustomGenerics.Structures
             throw new NotImplementedException();
         }
 
+        public IEnumerator<T> GetEnumerator()
+        { 
+            //return values so that when you use a foreach, the nodes are shown wherever we need them.
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }
