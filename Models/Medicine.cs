@@ -9,11 +9,13 @@ namespace Lab3_1170919_1132119.Models
     {
         public int id { get; set; }
         public string name { get; set; }
+        public int stock { get; set; }
 
         public Medicine()
         {
             id = 0;
             name = null;
+            stock = 0;
         }
     }
 }
