@@ -6,37 +6,39 @@ using CustomGenerics.Structures;
 
 namespace CustomGenerics.Structures
 {
-    public class BinaryTree<T> : IDataStructureBase<T>, IEnumerable<T>
+    public class BinaryTree<T> : IDataStructureBase<T>
     {
-        private BinaryTreeNode<T> root;
+        public BinaryTreeNode<T> root;
         private List<BinaryTreeNode<T>> returningList = new List<BinaryTreeNode<T>>();
 
-        public BinaryTree()
+        public static int CompareByName(string med1, string med2)
         {
-            root = null;
+            return med1.CompareTo(med2);
         }
 
-        public void AddMedicine(T medicine, T docLine, Comparison<BinaryTreeNode<T>> Comparison)
+        public void AddMedicine(T medicine, T docLine, Comparison<T> Compare)
         {
-            BinaryTreeNode<T> node = new BinaryTreeNode<T> { medicine = medicine, docLine = docLine, leftSon = null, rightSon = null };
-            Insert(root, node, Comparison);
+            BinaryTreeNode<T> node = new BinaryTreeNode<T> { medicine = medicine, docLine = docLine, leftSon = null, rightSon = null, father = null };
+            Insert(root, node, Compare);
         }
 
-        public void Insert(BinaryTreeNode<T> currentNode, BinaryTreeNode<T> newNode, Comparison<BinaryTreeNode<T>> Comparison)
+        public void Insert(BinaryTreeNode<T> currentNode, BinaryTreeNode<T> newNode, Comparison<T> Compare)
         {
             if (currentNode == null)
             {
                 currentNode = newNode;
             }
-            else if (Comparison(currentNode, newNode) < 0)
+            else if (currentNode.leftSon == null && currentNode.rightSon == null)
             {
-                currentNode = currentNode.leftSon;
-                Insert(currentNode, newNode, Comparison);
-            }
-            else
-            {
-                currentNode = currentNode.rightSon;
-                Insert(currentNode, newNode, Comparison);
+                newNode.father = currentNode;
+                if (Compare(currentNode.medicine, newNode.medicine) < 0)
+                {
+                    currentNode.leftSon = newNode;
+                }
+                else
+                {
+                    currentNode.rightSon = newNode;
+                }
             }
         }
 
@@ -46,20 +48,30 @@ namespace CustomGenerics.Structures
         {
             if (Comparison(currentNode.medicine, value) == 0)
             {
-                //Do something to replace the current node with the one with the most similar value to its,
-                //beloinging to one of its sub-trees.
+                var left = currentNode.leftSon;
+                var right = currentNode.rightSon;
                 if (currentNode.leftSon != null)
                 {
-                    GetReplacementLeft(currentNode.leftSon);
+                    currentNode = GetReplacementLeft(currentNode.leftSon);
                 }
                 else if (currentNode.rightSon != null)
                 {
-                    GetReplacementRight(currentNode.rightSon);
+                    currentNode = GetReplacementRight(currentNode.rightSon);
                 }
                 else
                 {
-                    currentNode = null;//Pending to assign left and right subtrees to the new node; already returning the correct node.
+                    currentNode = null;
                 }
+                currentNode.rightSon = right;
+                currentNode.leftSon = left;
+            }
+            else if (Comparison(currentNode.medicine, value) < 0)
+            {
+                Delete(currentNode.leftSon, value, Comparison);
+            }
+            else 
+            {
+                Delete(currentNode.rightSon, value, Comparison);
             }
         }
 
@@ -67,22 +79,19 @@ namespace CustomGenerics.Structures
         {
             if (currentNode.rightSon != null)
             {
-                if ((currentNode.rightSon).rightSon != null)
-                {
-                    return GetReplacementLeft(currentNode.rightSon);
-                }
-                else
-                {
-                    var replacementNode = currentNode.rightSon;
-                    if ((currentNode.rightSon).leftSon != null)
-                    {
-                        currentNode.rightSon = (currentNode.rightSon).leftSon;
-                    }
-                    return replacementNode;
-                }
+                return GetReplacementLeft(currentNode.rightSon);
             }
             else
             {
+                if (currentNode.leftSon != null)
+                {
+                    (currentNode.father).rightSon = currentNode.leftSon;
+                    (currentNode.leftSon).father = currentNode.father;
+                }
+                else
+                {
+                    (currentNode.father).rightSon = null;
+                }
                 return currentNode;
             }
         }
@@ -91,22 +100,19 @@ namespace CustomGenerics.Structures
         {
             if (currentNode.leftSon != null)
             {
-                if ((currentNode.leftSon).leftSon != null)
-                {
-                    return GetReplacementLeft(currentNode.leftSon);
-                }
-                else
-                {
-                    var replacementNode = currentNode.leftSon;
-                    if ((currentNode.leftSon).rightSon != null)
-                    {
-                        currentNode.leftSon = (currentNode.leftSon).rightSon;
-                    }
-                    return replacementNode;
-                }
+                return GetReplacementRight(currentNode.leftSon);
             }
             else
             {
+                if (currentNode.rightSon != null)
+                {
+                    (currentNode.father).leftSon = currentNode.rightSon;
+                    (currentNode.rightSon).father = currentNode.father;
+                }
+                else
+                {
+                    (currentNode.father).leftSon = null;
+                }
                 return currentNode;
             }
         }
@@ -134,9 +140,10 @@ namespace CustomGenerics.Structures
             return null;
         }
 
-        public T GetT()
+        public List<BinaryTreeNode<T>> GetList()
         {
-            throw new NotImplementedException();
+            InOrder(root);
+            return returningList;
         }
 
         public void InOrder(BinaryTreeNode<T> currentNode)
@@ -150,25 +157,6 @@ namespace CustomGenerics.Structures
             {
                 InOrder(currentNode.rightSon);
             }
-        }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            if (returningList.Count > 0)
-            {
-                var current = returningList[0];
-                while (returningList.Count > 0)
-                {
-                    yield return current.medicine;
-                    returningList.RemoveAt(0);
-                }
-            }
-            //Check that you cannot return a binarytreenode as a T value
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 }

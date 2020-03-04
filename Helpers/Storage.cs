@@ -20,5 +20,6 @@ namespace Lab3_1170919_1132119.Helpers
             }
         }
         public BinaryTree<Medicine> binaryTree = new BinaryTree<Medicine>();
+        public List<MedicineModel> medicineList = new List<MedicineModel>();
     }
 }

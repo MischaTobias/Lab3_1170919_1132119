@@ -16,7 +16,7 @@ namespace Lab3_1170919_1132119
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Medicine", action = "FileInventoryCreate", id = UrlParameter.Optional }
             );
         }
     }
