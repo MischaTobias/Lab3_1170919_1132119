@@ -18,7 +18,7 @@ namespace Lab3_1170919_1132119.Controllers
             return View();
         }
 
-        public ActionResult Index()
+        public ActionResult CustomerInfo()
         {
             return View();
         }
