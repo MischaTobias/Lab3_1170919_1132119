@@ -4,8 +4,8 @@ namespace CustomGenerics.Interfaces
 {
     public interface IDataStructureBase <T>
     {
-        void Insert(BinaryTreeNode<T> currentNode, BinaryTreeNode<T> newNode, delegate int Compare);
-        void Delete(BinaryTreeNode<T> currentNode, T value, Comparison<T> Compare);
-        BinaryTreeNode<T> Search(BinaryTreeNode<T> currentNode, T medicine, delegate int Compare);
+        void Insert(BinaryTreeNode<T> currentNode, BinaryTreeNode<T> newNode);
+        void Delete(BinaryTreeNode<T> currentNode, string value);
+        BinaryTreeNode<T> Search(BinaryTreeNode<T> currentNode, string medicine);
     }
 }

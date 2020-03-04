@@ -97,7 +97,7 @@ namespace Lab3_1170919_1132119.Controllers
                         stock = int.Parse(medicineData[5])
                     };
                     Comparison Comparer = BinaryTree<string>.CompareByName;
-                    Storage.Instance.binaryTree.AddMedicine(medicineData[1], int.Parse(medicineData[0]), Comparer);
+                    Storage.Instance.binaryTree.AddMedicine(medicineData[1], int.Parse(medicineData[0]));
                     line = streamReader.ReadLine();
                 }
                 return RedirectToAction("Index");

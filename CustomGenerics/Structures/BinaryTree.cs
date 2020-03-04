@@ -16,13 +16,13 @@ namespace CustomGenerics.Structures
             return med1.CompareTo(med2);
         }
 
-        public void AddMedicine(T medicine, T docLine, Comparison<T> Compare)
+        public void AddMedicine(string medicine, int docLine)
         {
             BinaryTreeNode<T> node = new BinaryTreeNode<T> { medicine = medicine, docLine = docLine, leftSon = null, rightSon = null, father = null };
-            Insert(root, node, Compare);
+            Insert(root, node);
         }
 
-        public void Insert(BinaryTreeNode<T> currentNode, BinaryTreeNode<T> newNode, Comparison<T> Compare)
+        public void Insert(BinaryTreeNode<T> currentNode, BinaryTreeNode<T> newNode)
         {
             if (currentNode == null)
             {
@@ -31,7 +31,7 @@ namespace CustomGenerics.Structures
             else if (currentNode.leftSon == null && currentNode.rightSon == null)
             {
                 newNode.father = currentNode;
-                if (Compare(currentNode.medicine, newNode.medicine) < 0)
+                if (CompareByName(currentNode.medicine, newNode.medicine) < 0)
                 {
                     currentNode.leftSon = newNode;
                 }
@@ -44,9 +44,9 @@ namespace CustomGenerics.Structures
 
         //public delegate BinaryTreeNode<T> GetReplacementNode();
 
-        public void Delete(BinaryTreeNode<T> currentNode, T value, Comparison<T> Comparison)
+        public void Delete(BinaryTreeNode<T> currentNode, string value)
         {
-            if (Comparison(currentNode.medicine, value) == 0)
+            if (CompareByName(currentNode.medicine, value) == 0)
             {
                 var left = currentNode.leftSon;
                 var right = currentNode.rightSon;
@@ -65,13 +65,13 @@ namespace CustomGenerics.Structures
                 currentNode.rightSon = right;
                 currentNode.leftSon = left;
             }
-            else if (Comparison(currentNode.medicine, value) < 0)
+            else if (CompareByName(currentNode.medicine, value) < 0)
             {
-                Delete(currentNode.leftSon, value, Comparison);
+                Delete(currentNode.leftSon, value);
             }
             else 
             {
-                Delete(currentNode.rightSon, value, Comparison);
+                Delete(currentNode.rightSon, value);
             }
         }
 
@@ -117,16 +117,16 @@ namespace CustomGenerics.Structures
             }
         }
 
-        public BinaryTreeNode<T> Search(BinaryTreeNode<T> currentNode, T medicine, Comparison<T> Comparison)
+        public BinaryTreeNode<T> Search(BinaryTreeNode<T> currentNode, string medicine)
         {
-            if (Comparison(medicine, currentNode.medicine) < 0)
+            if (CompareByName(medicine, currentNode.medicine) < 0)
             {
                 if (currentNode.leftSon != null)
                 {
-                    return Search(currentNode.leftSon, medicine, Comparison);
+                    return Search(currentNode.leftSon, medicine);
                 }
             }
-            else if (Comparison(medicine, currentNode.medicine) == 0)
+            else if (CompareByName(medicine, currentNode.medicine) == 0)
             {
                 return currentNode;
             }
@@ -134,7 +134,7 @@ namespace CustomGenerics.Structures
             {
                 if (currentNode.rightSon != null)
                 {
-                    return Search(currentNode.rightSon, medicine, Comparison);
+                    return Search(currentNode.rightSon, medicine);
                 }
             }
             return null;
