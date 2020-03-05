@@ -166,6 +166,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Medicine\FileInventoryCreate.cshtml" />
     <Content Include="Views\Medicine\CustomerInfo.cshtml" />
+    <Content Include="Views\Medicine\ShowMedicines.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

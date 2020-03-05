@@ -10,7 +10,7 @@ namespace Lab3_1170919_1132119.Models
         public string name { get; set; }
         public string address { get; set; }
         public string nit { get; set; }
-        private List<string> medicines { get; set; }
+        private List<Medicine> medicines { get; set; }
         private int debt { get; set; }
 
         public Customer()
@@ -22,7 +22,7 @@ namespace Lab3_1170919_1132119.Models
             debt = 0;
         }
 
-        public void AddToList(string med)
+        public void AddToList(Medicine med)
         {
             medicines.Add(med);
         }

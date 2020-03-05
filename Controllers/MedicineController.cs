@@ -18,11 +18,6 @@ namespace Lab3_1170919_1132119.Controllers
             return View();
         }
 
-        public ActionResult CustomerInfo()
-        {
-            return View();
-        }
-
         [HttpPost]
         public ActionResult FileInventoryCreate(FormCollection collection)
         {
@@ -108,6 +103,37 @@ namespace Lab3_1170919_1132119.Controllers
             }
         }
 
+        public ActionResult CustomerInfo()
+        {
+            return View();
+        }
+
+        public ActionResult ShowMedicines()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CustomerInfo(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                var cliente = new Customer()
+                {
+                    name = collection["name"],
+                    nit = collection["nit"],
+                    address = collection["address"]
+                };
+                //donde esta 
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
         public delegate int Comparison(string value1, string value2);
 
         // POST: Medicine/Create
@@ -125,5 +151,34 @@ namespace Lab3_1170919_1132119.Controllers
                 return View();
             }
         }
+
+        //aquel lo tenia super diferente
+        // simoncho, por eso te decía que necesitaba que él hiciera el push, para que así tuviéramos al menos algo de lo que él hizo jajaa
+        
+        public ActionResult Carrito()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Carrito(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                var cliente = new Customer()
+                {
+                    name   =collection["name"]  ,
+                    nit    =collection["nit"]   ,
+                    address =collection["address"]
+                };
+                //donde esta 
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        //
     }
 }
